@@ -22,7 +22,7 @@ var_dump($EmailUI);
 $meddelande = mysqli_real_escape_string($conn, $_POST['meddelande']);
 var_dump($meddelande);
 
-$UserSelect = $conn->prepare("SELECT username FROM users WHERE username = ?");
+$UserSelect = $conn->prepare("SELECT UsernameUI FROM UsersAI WHERE UsernameUI = ?");
 var_dump($UserSelect);
 $UserSelect->bind_param("s", $UsernameUI);
 $UserSelect->execute();
@@ -31,12 +31,12 @@ if ($row = mysqli_fetch_assoc($UserSelect)) {
     $errors[] = "Användarnamnet är redan upptaget.";
     var_dump($errors);
 } else {
-    $HashedPassword = password_hash($PasswordUI, PASSWORD_DEFAULT);
-    var_dump($HashedPassword);
-    $stmt = $conn->prepare(`INSERT INTO users (username, password, email, meddelande) VALUES (?, ?, ?, ?)`);
-    var_dump($stmt);
-    $stmt->bind_param("ssss", $UsernameUI, $HashedPassword, $EmailUI, trim($meddelande));
-    if ($stmt->execute()) {
+    $HashedPasswordX = password_hash($PasswordUI, PASSWORD_DEFAULT);
+    var_dump($HashedPasswordX);
+    $_stmt = $conn->prepare(`INSERT INTO UsersAI (UsernameUI, PasswordUI, EmailUI, meddelande) VALUES (?, ?, ?, ?)`);
+    var_dump($_stmt);
+    $_stmt->bind_param("ssss", $UsernameUI, $HashedPasswordX, $EmailUI, trim($meddelande));
+    if ($_stmt->execute()) {
     $secretKey = $_ENV['RECAPTCHA_SECRET_KEY'];
     $token = $_POST['g-recaptcha-response'] ?? '';
 
@@ -149,9 +149,9 @@ try {
     echo "Fel vid skapande av konto.";
     }} ?>
 <!doctype html />
-<HTML LANG="us-EN" />
-<head />
-<title /> MarnoPets.com </title>
+<HTML LANG="sv_SE" />
+<HEAD />
+<TITLE /> MarnoPets.com </TITLE>
 <link rel="stylesheet" type="text/css" href="marnopets.com/assets/css/style.css" />
 </head>
 <body>
